@@ -25,7 +25,7 @@ export const client = new CustomClient({
     }
 });
 
-const media_msg = MessageMedia.fromFilePath('./logo.png');
+/* const media_msg = MessageMedia.fromFilePath('./logo.png'); */
 
 client.on('qr', qr => {
     qrcode.generate(qr, {
@@ -46,9 +46,9 @@ client.on('message', message => {
         message.reply('pong');
     }
 
-    if (message.body.toLowerCase() === 'photo') {
+/*     if (message.body.toLowerCase() === 'photo') {
         message.reply(media_msg);
-    }
+    } */
 
 });
 

@@ -16,7 +16,7 @@ export const client = new CustomClient({
         headless: false
     }
 });
-const media_msg = MessageMedia.fromFilePath('./logo.png');
+/* const media_msg = MessageMedia.fromFilePath('./logo.png'); */
 client.on('qr', qr => {
     qrcode.generate(qr, {
         small: true
@@ -30,8 +30,12 @@ client.on('message', message => {
     if (message.body.toLowerCase() === 'ping') {
         message.reply('pong');
     }
-    if (message.body.toLowerCase() === 'photo') {
-        message.reply(media_msg);
-    }
+    /*     if (message.body.toLowerCase() === 'photo') {
+            message.reply(media_msg);
+        } */
 });
+/*
+http://127.0.0.1:9222/json/version
+C:\"Program Files (x86)\Microsoft\Edge\Application\msedge.exe" -"remote-debugging-port=9222"
+*/ 
 //# sourceMappingURL=whatsapp-api.js.map
