@@ -19,6 +19,7 @@ client.initialize().then(() => {
         };
 
         client.pupPage?.on("close", on_close);
+        client.pupPage?.on("error", on_close);
 
         client.on("disconnected", on_close);
 

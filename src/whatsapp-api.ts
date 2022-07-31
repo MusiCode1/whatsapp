@@ -26,13 +26,13 @@ class CustomClient extends Client {
     }
 }
 
-//const chromium_devtools_link = await get_chrome_ws().catch(error => undefined);
+const chromium_devtools_link = await get_chrome_ws().catch(error => undefined);
 
 export const client = new CustomClient({
 
     authStrategy: new LocalAuth(),
     puppeteer: {
-        //browserWSEndpoint: chromium_devtools_link,
+        browserWSEndpoint: chromium_devtools_link,
         headless: false
     }
 });
@@ -68,4 +68,5 @@ client.on('message', message => {
 http://127.0.0.1:9222/json/version
 C:\"Program Files (x86)\Microsoft\Edge\Application\msedge.exe" -"remote-debugging-port=9222"
 C:\"Program Files\Google\Chrome\Application\chrome.exe" -"remote-debugging-port=9222"
+-remote-debugging-port=9222
 */
