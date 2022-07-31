@@ -20,7 +20,9 @@ msg_router.post("/send-message", async (req, res, next) => {
     } = req.body;
 
     try {
-        await client.msg_to_provider(phone, caption, file);
+        await client.then(
+            client => client.msg_to_provider(phone, caption, file)
+        );
 
     } catch (error) {
 
