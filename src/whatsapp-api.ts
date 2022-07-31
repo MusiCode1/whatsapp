@@ -1,5 +1,3 @@
-
-
 import whatsapp from 'whatsapp-web.js';
 const { Client, LocalAuth, MessageMedia } = whatsapp;
 import { get_chrome_ws } from "./get-puppeteer-url.js";
@@ -53,3 +51,8 @@ client.on('message', message => {
     }
 
 });
+
+/*
+
+C:\"Program Files (x86)\Microsoft\Edge\Application\msedge.exe" -"remote-debugging-port=9222"
+*/
