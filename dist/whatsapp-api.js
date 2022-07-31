@@ -1,6 +1,5 @@
 import whatsapp from 'whatsapp-web.js';
 const { Client, LocalAuth, MessageMedia } = whatsapp;
-import { get_chrome_ws } from "./get-puppeteer-url.js";
 import qrcode from 'qrcode-terminal';
 class CustomClient extends Client {
     msg_to_provider(phone, caption, file) {
@@ -15,11 +14,11 @@ class CustomClient extends Client {
         return this.sendMessage(phone + "@c.us", media_msg, msg_option);
     }
 }
-const chromium_devtools_link = await get_chrome_ws().catch(error => undefined);
+//const chromium_devtools_link = await get_chrome_ws().catch(error => undefined);
 export const client = new CustomClient({
     authStrategy: new LocalAuth(),
     puppeteer: {
-        browserWSEndpoint: chromium_devtools_link,
+        //browserWSEndpoint: chromium_devtools_link,
         headless: false
     }
 });

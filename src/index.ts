@@ -6,25 +6,28 @@ const app = express();
 app.use(msg_router);
 
 
+client.initialize().then(() => {
 
+    const server = app.listen(3000, "127.0.0.1", () => {
 
-const server = app.listen(3000, "127.0.0.1", () => {
-    console.log("listen in port 3000...");
+        console.log("listen in port 3000...");
 
-    client.initialize();
+        const on_close = () => {
+            server.close();
+            console.log("whatsapp client disconnected");
+            process.exit(2);
+        };
 
-    client.on("disconnected", () => {
-        server.close();
-        console.log("whatsapp client disconnected");
-    
+        client.pupPage?.on("close", on_close);
+
+        client.on("disconnected", on_close);
+
+        process.on('SIGINT', () => {
+            console.log('Ctrl-C...');
+
+            on_close();
+        });
+
     });
 
-});
-
-process.on('SIGINT', function () {
-    console.log('Ctrl-C...');
-    //client.destroy();
-    client.pupPage?.close()
-    server.close();
-    process.exit(2);
 });
