@@ -53,6 +53,6 @@ client.on('message', message => {
 });
 
 /*
-
+http://127.0.0.1:9222/json/version
 C:\"Program Files (x86)\Microsoft\Edge\Application\msedge.exe" -"remote-debugging-port=9222"
 */
