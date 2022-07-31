@@ -1,6 +1,7 @@
 import whatsapp from 'whatsapp-web.js';
 const { Client, LocalAuth, MessageMedia } = whatsapp;
 import { get_chrome_ws } from "./get-puppeteer-url.js";
+import type { MessageSendOptions } from "whatsapp-web.js";
 
 import qrcode from 'qrcode-terminal';
 
@@ -8,19 +9,30 @@ class CustomClient extends Client {
 
     msg_to_provider(phone: string, caption: string, file: string) {
 
+        if (file === "") {
+
+            return this.sendMessage(phone + "@c.us", caption);
+        }
+
+        const msg_option: MessageSendOptions = {};
+
+        if (caption !== "") {
+            msg_option.caption = caption;
+        }
+
         const media_msg = MessageMedia.fromFilePath(file);
 
-        return this.sendMessage(phone + "@c.us", media_msg, { caption })
+        return this.sendMessage(phone + "@c.us", media_msg, msg_option);
     }
 }
 
-const chromium_devtools_link = await get_chrome_ws().catch(error => undefined);
+//const chromium_devtools_link = await get_chrome_ws().catch(error => undefined);
 
 export const client = new CustomClient({
 
     authStrategy: new LocalAuth(),
     puppeteer: {
-        browserWSEndpoint: chromium_devtools_link,
+        //browserWSEndpoint: chromium_devtools_link,
         headless: false
     }
 });
@@ -46,13 +58,14 @@ client.on('message', message => {
         message.reply('pong');
     }
 
-/*     if (message.body.toLowerCase() === 'photo') {
-        message.reply(media_msg);
-    } */
+    /*     if (message.body.toLowerCase() === 'photo') {
+            message.reply(media_msg);
+        } */
 
 });
 
 /*
 http://127.0.0.1:9222/json/version
 C:\"Program Files (x86)\Microsoft\Edge\Application\msedge.exe" -"remote-debugging-port=9222"
+C:\"Program Files\Google\Chrome\Application\chrome.exe" -"remote-debugging-port=9222"
 */

@@ -4,8 +4,15 @@ import { get_chrome_ws } from "./get-puppeteer-url.js";
 import qrcode from 'qrcode-terminal';
 class CustomClient extends Client {
     msg_to_provider(phone, caption, file) {
+        if (file === "") {
+            return this.sendMessage(phone + "@c.us", caption);
+        }
+        const msg_option = {};
+        if (caption !== "") {
+            msg_option.caption = caption;
+        }
         const media_msg = MessageMedia.fromFilePath(file);
-        return this.sendMessage(phone + "@c.us", media_msg, { caption });
+        return this.sendMessage(phone + "@c.us", media_msg, msg_option);
     }
 }
 const chromium_devtools_link = await get_chrome_ws().catch(error => undefined);
@@ -37,5 +44,6 @@ client.on('message', message => {
 /*
 http://127.0.0.1:9222/json/version
 C:\"Program Files (x86)\Microsoft\Edge\Application\msedge.exe" -"remote-debugging-port=9222"
+C:\"Program Files\Google\Chrome\Application\chrome.exe" -"remote-debugging-port=9222"
 */ 
 //# sourceMappingURL=whatsapp-api.js.map
