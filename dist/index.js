@@ -1,5 +1,4 @@
-import { config } from "dotenv";
-config();
+import 'dotenv/config.js';
 import express from "express";
 import { msg_router } from "./server.js";
 import { client as wa_client } from "./whatsapp-api.js";

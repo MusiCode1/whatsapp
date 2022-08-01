@@ -1,4 +1,4 @@
-import { config } from "dotenv"; config();
+import 'dotenv/config.js';
 
 import express from "express";
 import { msg_router } from "./server.js";
