@@ -1,13 +1,14 @@
-import { get_chrome_ws } from "./get-puppeteer-url.js";
-import { exec as exec_sync } from "child_process";
 import whatsapp from 'whatsapp-web.js';
 import qrcode from 'qrcode-terminal';
-import util from "util";
-const exec = util.promisify(exec_sync);
+/* import { get_chrome_ws } from "./get-puppeteer-url.js"; */
+/* import { exec as exec_sync } from "child_process"; */
+/* import util from "util"; */
+/* import puppeteer from "puppeteer"; */
+/* const exec = util.promisify(exec_sync); */
 const { Client, LocalAuth, MessageMedia } = whatsapp;
 class CustomClient extends Client {
     msg_to_provider(phone, caption, file) {
-        if (file === "") {
+        if (!file) {
             return this.sendMessage(phone + "@c.us", caption);
         }
         const msg_option = {};
@@ -19,12 +20,12 @@ class CustomClient extends Client {
     }
 }
 export const client = (async () => {
-    const chrome_ws = await get_chrome_ws();
+    /* const chrome_ws = await get_chrome_ws(); */
     const client = new CustomClient({
         authStrategy: new LocalAuth(),
         puppeteer: {
-            browserWSEndpoint: chrome_ws,
-            headless: false
+            /* browserWSEndpoint: chrome_ws, */
+            headless: Boolean(process.env.HEADLESS)
         }
     });
     client.on('qr', qr => {

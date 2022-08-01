@@ -1,13 +1,16 @@
+import { config } from "dotenv";
+config();
 import express from "express";
 import { msg_router } from "./server.js";
 import { client as wa_client } from "./whatsapp-api.js";
 const app = express();
 app.use(msg_router);
+const PORT = Number(process.env.PORT) || 3000;
 (async () => {
     const client = await wa_client;
     await client.initialize();
-    const server = await new Promise(resolve => { const server = app.listen(3000, "127.0.0.1", () => resolve(server)); });
-    console.log("listen in port 3000...");
+    const server = await new Promise(resolve => { const server = app.listen(PORT, () => resolve(server)); });
+    console.log(`listen in port ${PORT}...`);
     const on_close = () => {
         client.pupPage?.close();
         server.close();

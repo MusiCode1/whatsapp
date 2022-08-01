@@ -15,7 +15,7 @@ class CustomClient extends Client {
 
     msg_to_provider(phone: string, caption: string, file: string) {
 
-        if (file === "") {
+        if (!file) {
 
             return this.sendMessage(phone + "@c.us", caption);
         }
@@ -41,7 +41,7 @@ export const client = (async () => {
         authStrategy: new LocalAuth(),
         puppeteer: {
             /* browserWSEndpoint: chrome_ws, */
-            headless: Boolean(process.env.HEADLESS) || true
+            headless: Boolean(process.env.HEADLESS)
         }
     })
 
