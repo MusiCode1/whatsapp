@@ -38,20 +38,13 @@ class CustomClient extends Client {
 
 export const client = (async () => {
 
-    const chrome_ws = await get_chrome_ws().catch(async () => {
-        exec("start " + puppeteer.executablePath() + " -remote-debugging-port=9222");
-        await new Promise(resolve => setTimeout(resolve, 3 * 1000))
-    })
-
-
-
-
+    const chrome_ws = await get_chrome_ws();
 
     const client = new CustomClient({
 
         authStrategy: new LocalAuth(),
         puppeteer: {
-            browserWSEndpoint: await get_chrome_ws(),
+            browserWSEndpoint: chrome_ws,
             headless: false
         }
     })
@@ -69,19 +62,20 @@ export const client = (async () => {
 
     client.on('message', message => {
 
-        console.log();
+        console.log(message.from, message.body);
 
         if (message.body.toLowerCase() === 'ping') {
             message.reply('pong');
+        }
+
+        if (message.body.toLowerCase() === '/magen') {
+            message.reply('Magen halev!');
         }
 
     });
 
     return client;
 })();
-
-/* const media_msg = MessageMedia.fromFilePath('./logo.png'); */
-
 
 
 /*

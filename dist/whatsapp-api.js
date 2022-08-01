@@ -3,7 +3,6 @@ import { exec as exec_sync } from "child_process";
 import whatsapp from 'whatsapp-web.js';
 import qrcode from 'qrcode-terminal';
 import util from "util";
-import puppeteer from "puppeteer";
 const exec = util.promisify(exec_sync);
 const { Client, LocalAuth, MessageMedia } = whatsapp;
 class CustomClient extends Client {
@@ -20,14 +19,11 @@ class CustomClient extends Client {
     }
 }
 export const client = (async () => {
-    const chrome_ws = await get_chrome_ws().catch(async () => {
-        exec("start " + puppeteer.executablePath() + " -remote-debugging-port=9222");
-        await new Promise(resolve => setTimeout(resolve, 3 * 1000));
-    });
+    const chrome_ws = await get_chrome_ws();
     const client = new CustomClient({
         authStrategy: new LocalAuth(),
         puppeteer: {
-            browserWSEndpoint: await get_chrome_ws(),
+            browserWSEndpoint: chrome_ws,
             headless: false
         }
     });
