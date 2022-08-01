@@ -19,7 +19,7 @@ const PORT = Number(process.env.PORT) || 3000;
     await client.initialize();
 
     const server: Server = await new Promise(
-        resolve => { const server = app.listen(PORT, "127.0.0.1", () => resolve(server)) }
+        resolve => { const server = app.listen(PORT, () => resolve(server)) }
     );
 
     console.log(`listen in port ${PORT}...`);
