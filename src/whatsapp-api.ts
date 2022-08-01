@@ -45,7 +45,7 @@ export const client = (async () => {
         authStrategy: new LocalAuth(),
         puppeteer: {
             browserWSEndpoint: chrome_ws,
-            headless: false
+            headless: Boolean(process.env.HEADLESS) || true
         }
     })
 
