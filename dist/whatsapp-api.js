@@ -36,14 +36,16 @@ export const client = (async () => {
         console.log('Client is ready!');
     });
     client.on('message', message => {
-        console.log();
+        console.log(message.from, message.body);
         if (message.body.toLowerCase() === 'ping') {
             message.reply('pong');
+        }
+        if (message.body.toLowerCase() === '/magen') {
+            message.reply('Magen halev!');
         }
     });
     return client;
 })();
-/* const media_msg = MessageMedia.fromFilePath('./logo.png'); */
 /*
 http://127.0.0.1:9222/json/version
 C:\"Program Files (x86)\Microsoft\Edge\Application\msedge.exe" -"remote-debugging-port=9222"
