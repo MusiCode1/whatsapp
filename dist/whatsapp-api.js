@@ -25,7 +25,7 @@ export const client = (async () => {
         authStrategy: new LocalAuth(),
         puppeteer: {
             /* browserWSEndpoint: chrome_ws, */
-            headless: Boolean(process.env.HEADLESS)
+            headless: Boolean(Number(process.env.HEADLESS))
         }
     });
     client.on('qr', qr => {
