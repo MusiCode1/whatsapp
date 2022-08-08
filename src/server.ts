@@ -46,5 +46,6 @@ msg_router.post("/send-message", async (req, res, next) => {
 });
 
 msg_router.use((req, res, next) => {
-    res.location("https://tzoharhalev.org/")
+    res.location("https://tzoharhalev.org/");
+    res.end();
 });
