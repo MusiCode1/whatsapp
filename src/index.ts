@@ -14,6 +14,9 @@ const PORT = Number(process.env.PORT) || 3000;
 
 (async () => {
 
+    console.log("start...");
+    
+
     const client = await wa_client;
 
     await client.initialize();

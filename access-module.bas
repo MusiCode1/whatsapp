@@ -1,6 +1,6 @@
 Option Compare Database
 
-Private Const URL = "http://localhost:3000/send-message"
+Private Const URL = "https://whatsapp.davar.biz/send-message"
 
 
 Private Sub send_whatsapp()
