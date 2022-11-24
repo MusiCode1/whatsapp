@@ -15,17 +15,17 @@ const PORT = Number(process.env.PORT) || 3000;
 (async () => {
 
     console.log("start...");
-    
 
+    const server = app.listen(PORT,
+        () => console.log(`listen in port ${PORT}...`)
+    );
+
+
+    console.log("start whatsapp claient...");
     const client = await wa_client;
 
     await client.initialize();
 
-    const server: Server = await new Promise(
-        resolve => { const server = app.listen(PORT, () => resolve(server)) }
-    );
-
-    console.log(`listen in port ${PORT}...`);
 
     const on_close = () => {
         client.pupPage?.close();

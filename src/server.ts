@@ -36,8 +36,10 @@ msg_router.post("/send-message", async (req, res, next) => {
 
         console.error(error);
 
-        res.status(400);
+        res.status(500);
         res.end();
+
+        return 
 
     }
 
